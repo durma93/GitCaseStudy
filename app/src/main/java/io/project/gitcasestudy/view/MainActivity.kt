@@ -1,7 +1,7 @@
 package io.project.gitcasestudy.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -11,10 +11,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.project.gitcasestudy.R
 import io.project.gitcasestudy.model.pojo.GitObject
 import io.project.gitcasestudy.utils.DataState
+import io.project.gitcasestudy.utils.GIT_OBJECT
 import io.project.gitcasestudy.viewmodel.GitListStateEvent
 import io.project.gitcasestudy.viewmodel.GitViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+
 
 private const val TAG = "MainActivity"
 
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = gitAdapter
         }
+
+
     }
 
     private fun subscribeObservers() {
@@ -44,13 +48,12 @@ class MainActivity : AppCompatActivity() {
             when (dataState) {
                 is DataState.Success<List<GitObject>> -> {
                     gitAdapter.gitList = dataState.data
+
                     gitAdapter.setClickListener { gitObject: GitObject ->
                         run {
-                            Toast.makeText(
-                                this,
-                                "subscribeObservers: ${gitObject.language}, ${gitObject.numberOfWatchers}, ${gitObject.loginName}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            val intent = Intent(this, DetailsActivity::class.java)
+                            intent.putExtra(GIT_OBJECT, gitObject)
+                            startActivity(intent)
                         }
                     }
                 }

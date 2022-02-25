@@ -17,6 +17,7 @@ import javax.inject.Singleton
 object RetrofitModule {
 
     private const val TAG = "RetrofitModule"
+
     @Singleton
     @Provides
     fun provideGsonBuilder(): Gson {
@@ -34,7 +35,7 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideCommentsService(retrofit: Retrofit.Builder): GitRetrofit {
+    fun provideGitService(retrofit: Retrofit.Builder): GitRetrofit {
         return retrofit.build().create(GitRetrofit::class.java)
     }
 

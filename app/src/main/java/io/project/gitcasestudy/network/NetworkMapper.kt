@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class NetworkMapper
 @Inject
-constructor(): EntityMapper<GitResponse, GitObject>{
+constructor() : EntityMapper<GitResponse, GitObject> {
     override fun mapFromEntity(entity: GitResponse): GitObject {
         return GitObject(
             id = entity.id,
@@ -28,12 +28,12 @@ constructor(): EntityMapper<GitResponse, GitObject>{
             language = domainModel.language!!,
             watchers = domainModel.numberOfWatchers!!,
             description = domainModel.description!!,
-            owner = Owner( domainModel.loginName),
-            updatedAt = domainModel.repositoryUpdateDate
+            owner = Owner(domainModel.loginName!!),
+            updatedAt = domainModel.repositoryUpdateDate!!
         )
     }
 
-    fun mapFromEntityList(entities: List<GitResponse>): List<GitObject>{
+    fun mapFromEntityList(entities: List<GitResponse>): List<GitObject> {
         return entities.map { mapFromEntity(it) }
     }
 }

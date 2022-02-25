@@ -14,8 +14,7 @@ import javax.inject.Inject
 class GitViewModel
 @Inject
 constructor(
-    private val gitRepository: GitRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val gitRepository: GitRepository
 ) : ViewModel() {
     private val _dataState: MutableLiveData<DataState<List<GitObject>>> = MutableLiveData()
 
@@ -32,6 +31,7 @@ constructor(
                         }
                         .launchIn(viewModelScope)
                 }
+
                 else -> {
 
                 }
@@ -43,7 +43,6 @@ constructor(
 sealed class GitListStateEvent {
 
     object GetRepos : GitListStateEvent()
-
     object None : GitListStateEvent()
 
 }
