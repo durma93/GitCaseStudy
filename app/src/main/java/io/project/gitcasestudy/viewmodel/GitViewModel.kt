@@ -21,11 +21,11 @@ constructor(
     val dataState: LiveData<DataState<List<GitObject>>>
         get() = _dataState
 
-    fun setStateEvent(mainStateEvent: GitListStateEvent) {
+    fun setStateEvent(mainStateEvent: GitListStateEvent, pageNubmer: Int) {
         viewModelScope.launch {
             when (mainStateEvent) {
                 is GitListStateEvent.GetRepos -> {
-                    gitRepository.getRepos()
+                    gitRepository.getRepos(pageNubmer)
                         .onEach { dataState ->
                             _dataState.value = dataState
                         }

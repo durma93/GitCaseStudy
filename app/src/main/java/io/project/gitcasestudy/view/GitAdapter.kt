@@ -12,7 +12,7 @@ import kotlin.properties.Delegates
 
 class GitAdapter : RecyclerView.Adapter<GitViewHolder>() {
 
-    var gitList: List<GitObject> by Delegates.observable(emptyList()) { _, old, new ->
+    var gitList: MutableList<GitObject> by Delegates.observable(mutableListOf<GitObject>()) { _, old, new ->
         autoNotify(old, new) { o, n ->
             o.id == n.id
                     && o.description == n.description
